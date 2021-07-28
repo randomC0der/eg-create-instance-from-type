@@ -4,7 +4,7 @@ namespace CreateInstanceFromType.Tests
     using TestClasses;
     using Xunit;
 
-    public class InstanceFromTypeCreationTests
+    public class CreateInstanceFromType2020RuntimeArgsTest
     {
         [Fact]
         public void ShouldUseAParameterlessCtor()
@@ -19,15 +19,6 @@ namespace CreateInstanceFromType.Tests
         public void ShouldUseAParameterlessValueTypeCtor()
         {
             var instance = (Guid)CreateInstanceFromType2020RuntimeArgs
-                .GetInstance(typeof(Guid));
-
-            Assert.Equal(default, instance);
-        }
-        
-        [Fact]
-        public void ShouldUseAParameterlessValueTypeCtorDesign()
-        {
-            var instance = (Guid)CreateInstanceFromType2020DesignTimeArgs
                 .GetInstance(typeof(Guid));
 
             Assert.Equal(default, instance);
@@ -47,15 +38,6 @@ namespace CreateInstanceFromType.Tests
         public void ShouldUseASingleParameterValueTypeCtor()
         {
             var instance = (Guid)CreateInstanceFromType2020RuntimeArgs
-                .GetInstance(typeof(Guid), "5e55498a-86e1-495c-b829-0c5170346ef5");
-
-            Assert.Equal(Guid.Parse("5e55498a-86e1-495c-b829-0c5170346ef5"), instance);
-        }
-        
-        [Fact]
-        public void ShouldUseASingleParameterValueTypeCtorDesign()
-        {
-            var instance = (Guid)CreateInstanceFromType2020DesignTimeArgs
                 .GetInstance(typeof(Guid), "5e55498a-86e1-495c-b829-0c5170346ef5");
 
             Assert.Equal(Guid.Parse("5e55498a-86e1-495c-b829-0c5170346ef5"), instance);
@@ -149,28 +131,5 @@ namespace CreateInstanceFromType.Tests
             Assert.Contains("Failed to find a single matching constructor", ctorNotFoundEx.Message);
             Assert.Contains("null arguments", ctorNotFoundEx.Message);
         }
-
-        #region Test Classes
-
-        public class MultiTwoParamCtor
-        {
-            public MultiTwoParamCtor(int intValue, string stringValue)
-            {
-                IntValue = intValue;
-                StringValue = stringValue;
-            }
-
-            public MultiTwoParamCtor(int intValue, int? nullableIntValue)
-            {
-                IntValue = intValue;
-                StringValue = nullableIntValue.ToString();
-            }
-
-            public int IntValue { get; }
-            
-            public string StringValue { get; }
-        }
-
-        #endregion
     }
 }
