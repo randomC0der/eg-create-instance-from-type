@@ -17,6 +17,7 @@
         /// <param name="type">The type an instance of which should be created.</param>
         /// <param name="arguments">The arguments to pass to the type constructor.</param>
         /// <returns>An instance of this given <paramref name="type"/>.</returns>
+        /// <exception cref="NotSupportedException">If failed to find a suiting constructor.</exception>
         public static object GetInstance(this Type type, params object[] arguments)
         {
             var factoryKey = new TypeFactoryKey(type, arguments);
